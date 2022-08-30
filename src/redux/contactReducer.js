@@ -5,6 +5,7 @@ import {
   LOAD_MORE_CONTACTS_FAILURE,
   LOAD_MORE_CONTACTS_REQUEST,
   LOAD_MORE_CONTACTS_SUCCESS,
+  SET_ONLY_EVEN,
 } from './contactTypes';
 
 const initialState = {
@@ -48,7 +49,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         loadingMore: false,
         error: '',
-        contacts: [...state.contacts, action.payload],
+        contacts: [...state.contacts, ...action.payload],
         currentPage: state.currentPage + 1,
       };
     case LOAD_MORE_CONTACTS_FAILURE:
@@ -56,6 +57,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         loadingMore: false,
         error: action.payload,
+      };
+    // ONLY EVEN
+    case SET_ONLY_EVEN:
+      return {
+        ...state,
+        onlyEven: action.payload,
       };
     default:
       return state;

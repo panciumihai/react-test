@@ -1,1 +1,8 @@
 @import '~bootstrap/scss/bootstrap';
+
+.contact-list-container {
+  z-index: 99;
+  .list-group-item {
+    z-index: 0;
+  }
+}

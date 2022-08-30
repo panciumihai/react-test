@@ -3,7 +3,7 @@ import { ListGroup } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import Badge from 'react-bootstrap/Badge';
 import Scrollbars from 'react-custom-scrollbars-2';
-import { getContactsWithEvenId } from '../../utils/utils';
+import { getContactName, getContactsWithEvenId } from '../../utils/utils';
 
 const ContactsList = (props) => {
   const {
@@ -41,27 +41,36 @@ const ContactsList = (props) => {
       className={'contact-list-container'}
       onScrollFrame={(values) => scrollFrameHandler(values)}
     >
-      <ListGroup as='ol' className={'contact-list'}>
-        {filteredContacts.map((contact) => (
-          <ListGroup.Item
-            key={contact.id}
-            as='li'
-            className='d-flex justify-content-between align-items-start overflow-hidden'
-            action
-            onClick={() => onContactClick(contact)}
-          >
-            <div className='ms-2 me-auto'>
-              <div className='fw-bold'>{contact.email}</div>
-              Phone: {contact.phone_number}
-            </div>
-            <Badge bg='primary' pill>
-              {contact.id}
-            </Badge>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      {contacts.length > 0 && (
+        <ListGroup as='ol' className={'contact-list'}>
+          {filteredContacts.map((contact) => (
+            <ListGroup.Item
+              key={contact.id}
+              as='li'
+              className='d-flex justify-content-between align-items-start overflow-hidden'
+              action
+              onClick={() => onContactClick(contact)}
+            >
+              <div className='ms-2 me-auto'>
+                <div className='fw-bold'>{getContactName(contact)}</div>
+                Phone: {contact.phone_number}
+              </div>
+              <Badge bg='primary' pill>
+                {`ID: ${contact.id}`}
+              </Badge>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      )}
+
+      {!loading && contacts.length === 0 && (
+        <div className='center-container'>
+          <div className='fw-bold'>{'No results.'}</div>
+        </div>
+      )}
+
       {loading && (
-        <div className='spinner-container'>
+        <div className='center-container'>
           <Spinner animation='border' variant='primary' />
         </div>
       )}

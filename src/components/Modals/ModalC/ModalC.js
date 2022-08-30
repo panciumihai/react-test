@@ -1,5 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { getContactName } from '../../../utils/utils';
 
 const ModalC = (props) => {
   const { contact, show, onHide } = props;
@@ -35,8 +36,8 @@ const ModalC = (props) => {
             className='d-flex justify-content-between align-items-start overflow-hidden'
           >
             <div className='ms-2 me-auto'>
-              <div className='fw-bold'>{'First Name'}</div>
-              {contact.first_name}
+              <div className='fw-bold'>{'Full Name'}</div>
+              {getContactName(contact)}
             </div>
           </ListGroup.Item>
 
@@ -46,7 +47,7 @@ const ModalC = (props) => {
           >
             <div className='ms-2 me-auto'>
               <div className='fw-bold'>{'Email'}</div>
-              {contact.email}
+              {contact.email ? contact.email : '-'}
             </div>
           </ListGroup.Item>
 
@@ -56,7 +57,7 @@ const ModalC = (props) => {
           >
             <div className='ms-2 me-auto'>
               <div className='fw-bold'>{'Phone Number'}</div>
-              {contact.phone_number}
+              {contact.phone_number ? contact.phone_number : '-'}
             </div>
           </ListGroup.Item>
 
@@ -66,7 +67,7 @@ const ModalC = (props) => {
           >
             <div className='ms-2 me-auto'>
               <div className='fw-bold'>{'Full Phone Number'}</div>
-              {contact.full_phone_number}
+              {contact.full_phone_number ? contact.full_phone_number : '-'}
             </div>
           </ListGroup.Item>
         </ListGroup>

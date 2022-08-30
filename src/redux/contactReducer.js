@@ -14,16 +14,19 @@ const initialState = {
   currentPage: 1,
   loadingContacts: false,
   loadingMore: false,
+  loadMoreLimit: false,
   error: '',
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    // FETCH CONTACTS
     case FETCH_CONTACTS_REQUEST:
       return {
         ...state,
         loadingContacts: true,
         contacts: [],
+        loadMoreLimit: false,
       };
     case FETCH_CONTACTS_SUCCESS:
       return {
@@ -51,6 +54,7 @@ const reducer = (state = initialState, action) => {
         loadingMore: false,
         error: '',
         contacts: [...state.contacts, ...action.payload],
+        loadMoreLimit: action.payload.length === 0,
         currentPage: state.currentPage + 1,
       };
     case LOAD_MORE_CONTACTS_FAILURE:

@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { connect } from 'react-redux';
 import { fetchContacts, setOnlyEven, loadMoreContacts } from '../../../redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ContactsList from '../../ContactsList/ContactsList';
 import ModalC from '../ModalC/ModalC';
 
@@ -24,36 +24,42 @@ const ContactsModal = (props) => {
     currentPage,
     loadMoreContacts,
     loadingMore,
+    loadMoreLimit,
   } = props;
 
   const [searchValue, setSearchValue] = useState('');
-  const [firstFetch, setFirstFetch] = useState(true);
+  const [isFirstFetch, setIsFirstFetch] = useState(true);
 
   const [showModalC, setShowModalC] = useState(false);
   const [clickedContact, setClickedContact] = useState(null);
 
+  let delayDebounceFn = useRef(null);
+
   useEffect(() => {
     let delay = 1000;
 
-    if (firstFetch) {
+    if (isFirstFetch) {
       delay = 0;
-      setFirstFetch(false);
+      setIsFirstFetch(false);
     }
 
-    const delayDebounceFn = setTimeout(() => {
+    delayDebounceFn.timeout = setTimeout(() => {
       const query = { countryId: countryId, query: searchValue };
       fetchContacts(query);
     }, delay);
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchValue, fetchContacts, countryId, firstFetch]);
+    return () => clearTimeout(delayDebounceFn.timeout);
+  }, [searchValue, fetchContacts, countryId, isFirstFetch]);
 
   const searchHandler = () => {
     const query = { countryId: countryId, query: searchValue };
+    clearTimeout(delayDebounceFn.timeout);
     fetchContacts(query);
   };
 
   const loadMoreHandler = () => {
+    if (loadMoreLimit) return;
+
     const query = {
       countryId: countryId,
       query: searchValue,
@@ -152,6 +158,7 @@ const mapStateToProps = (state) => ({
   currentPage: state.currentPage,
   searchLoading: state.loadingContacts,
   loadingMore: state.loadingMore,
+  loadMoreLimit: state.loadMoreLimit,
 });
 
 const mapDispatchToProps = (dispatch) => ({

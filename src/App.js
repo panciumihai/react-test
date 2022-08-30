@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button';
 import ModalA from './components/Modals/ModalA/ModalA';
 import ModalB from './components/Modals/ModalB/ModalB';
 
-import styles from './App.module.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function App() {
@@ -37,7 +36,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <div className={styles.container}>
+        <div className='app-container'>
           <Button className={'m-1'} onClick={showModalAHandler}>
             Button A
           </Button>

@@ -12,9 +12,18 @@ $theme-colors: (
   }
 }
 
-.spinner-container {
+.center-container {
   margin: 20px 0;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

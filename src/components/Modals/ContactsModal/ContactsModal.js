@@ -12,6 +12,8 @@ const ContactsModal = (props) => {
   const {
     countryId,
     title,
+    onAllContactsClick,
+    onUSContactsClick,
     onHide,
     show,
     contacts,
@@ -114,10 +116,10 @@ const ContactsModal = (props) => {
             onChange={(e) => setOnlyEven(e.target.checked)}
           />
           <div>
-            <Button className={'m-1'} onClick={props.onHide}>
+            <Button className={'m-1'} onClick={onAllContactsClick}>
               All Contacts
             </Button>
-            <Button className={'m-1'} onClick={props.onHide}>
+            <Button className={'m-1'} onClick={onUSContactsClick}>
               US Contacts
             </Button>
             <Button

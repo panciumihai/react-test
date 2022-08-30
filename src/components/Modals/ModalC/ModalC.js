@@ -1,0 +1,70 @@
+import Modal from 'react-bootstrap/Modal';
+import ListGroup from 'react-bootstrap/ListGroup';
+
+const ModalC = (props) => {
+  const { contact, show, onHide } = props;
+
+  console.log(contact);
+
+  return (
+    <Modal
+      show={show}
+      onHide={onHide}
+      size='sm'
+      aria-labelledby='contained-modal-title-vcenter '
+      backdrop='static'
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id='contained-modal-title-vcenter'>
+          {'Contact Info'}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ListGroup as='ol'>
+          <ListGroup.Item
+            as='li'
+            className='d-flex justify-content-between align-items-start overflow-hidden'
+          >
+            <div className='ms-2 me-auto'>
+              <div className='fw-bold'>{'ID'}</div>
+              {contact.id}
+            </div>
+          </ListGroup.Item>
+
+          <ListGroup.Item
+            as='li'
+            className='d-flex justify-content-between align-items-start overflow-hidden'
+          >
+            <div className='ms-2 me-auto'>
+              <div className='fw-bold'>{'First Name'}</div>
+              {contact.first_name}
+            </div>
+          </ListGroup.Item>
+
+          <ListGroup.Item
+            as='li'
+            className='d-flex justify-content-between align-items-start overflow-hidden'
+          >
+            <div className='ms-2 me-auto'>
+              <div className='fw-bold'>{'Email'}</div>
+              {contact.email}
+            </div>
+          </ListGroup.Item>
+
+          <ListGroup.Item
+            as='li'
+            className='d-flex justify-content-between align-items-start overflow-hidden'
+          >
+            <div className='ms-2 me-auto'>
+              <div className='fw-bold'>{'Full Phone Number'}</div>
+              {contact.full_phone_number}
+            </div>
+          </ListGroup.Item>
+        </ListGroup>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
+export default ModalC;

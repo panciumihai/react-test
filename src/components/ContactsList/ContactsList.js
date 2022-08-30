@@ -11,6 +11,7 @@ const ContactsList = (props) => {
     onLoadMore,
     loading,
     scrollToTop,
+    onContactClick,
   } = props;
 
   const scrollRef = useRef(null);
@@ -25,10 +26,6 @@ const ContactsList = (props) => {
     if (!onlyEven) return contacts;
     return getContactsWithEvenId(contacts);
   }, [contacts, onlyEven]);
-
-  const contactClickHandler = (contactId) => {
-    console.log(contactId);
-  };
 
   const scrollFrameHandler = (values) => {
     if (values.top > 0.95 && !loading) {
@@ -51,7 +48,7 @@ const ContactsList = (props) => {
             as='li'
             className='d-flex justify-content-between align-items-start overflow-hidden'
             action
-            onClick={() => contactClickHandler(contact.id)}
+            onClick={() => onContactClick(contact)}
           >
             <div className='ms-2 me-auto'>
               <div className='fw-bold'>{contact.email}</div>

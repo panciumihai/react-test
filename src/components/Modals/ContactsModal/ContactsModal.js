@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { fetchContacts, setOnlyEven, loadMoreContacts } from '../../../redux';
 import { useEffect, useState } from 'react';
 import ContactsList from '../../ContactsList/ContactsList';
+import ModalC from '../ModalC/ModalC';
 
 const ContactsModal = (props) => {
   const {
@@ -25,6 +26,9 @@ const ContactsModal = (props) => {
 
   const [searchValue, setSearchValue] = useState('');
   const [firstFetch, setFirstFetch] = useState(true);
+
+  const [showModalC, setShowModalC] = useState(false);
+  const [clickedContact, setClickedContact] = useState(null);
 
   useEffect(() => {
     let delay = 1000;
@@ -57,64 +61,83 @@ const ContactsModal = (props) => {
     loadMoreContacts(query);
   };
 
+  const contactClickHandler = (contact) => {
+    setClickedContact(contact);
+    setShowModalC(true);
+  };
+
   return (
-    <Modal
-      show={show}
-      onHide={onHide}
-      size='md'
-      aria-labelledby='contained-modal-title-vcenter '
-      backdrop='static'
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id='contained-modal-title-vcenter'>{title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <InputGroup className='mb-3'>
-          <Form.Control
-            placeholder='Search contacts'
-            aria-label='Search contacts'
-            aria-describedby='basic-addon2'
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            onKeyDown={(e) => (e.key === 'Enter' ? searchHandler() : null)}
+    <>
+      <Modal
+        show={show}
+        onHide={onHide}
+        size='md'
+        aria-labelledby='contained-modal-title-vcenter '
+        backdrop='static'
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id='contained-modal-title-vcenter'>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <InputGroup className='mb-3'>
+            <Form.Control
+              placeholder='Search contacts'
+              aria-label='Search contacts'
+              aria-describedby='basic-addon2'
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={(e) => (e.key === 'Enter' ? searchHandler() : null)}
+            />
+            <Button
+              variant='outline-secondary'
+              id='button-addon2'
+              onClick={() => searchHandler()}
+            >
+              Search
+            </Button>
+          </InputGroup>
+          <ContactsList
+            contacts={contacts}
+            onlyEven={onlyEven}
+            onLoadMore={loadMoreHandler}
+            loading={loadingMore || searchLoading}
+            scrollToTop={searchLoading}
+            onContactClick={contactClickHandler}
           />
-          <Button
-            variant='outline-secondary'
-            id='button-addon2'
-            onClick={() => searchHandler()}
-          >
-            Search
-          </Button>
-        </InputGroup>
-        <ContactsList
-          contacts={contacts}
-          onlyEven={onlyEven}
-          onLoadMore={loadMoreHandler}
-          loading={loadingMore || searchLoading}
-          scrollToTop={searchLoading}
+        </Modal.Body>
+        <Modal.Footer className={'d-flex justify-content-between'}>
+          <Form.Check
+            type={'checkbox'}
+            label={'Only even'}
+            checked={onlyEven}
+            onChange={(e) => setOnlyEven(e.target.checked)}
+          />
+          <div>
+            <Button className={'m-1'} onClick={props.onHide}>
+              All Contacts
+            </Button>
+            <Button className={'m-1'} onClick={props.onHide}>
+              US Contacts
+            </Button>
+            <Button
+              className={'m-1'}
+              onClick={props.onHide}
+              variant='secondary'
+            >
+              Close
+            </Button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+      {clickedContact && (
+        <ModalC
+          show={showModalC}
+          onHide={() => setShowModalC(false)}
+          contact={clickedContact}
         />
-      </Modal.Body>
-      <Modal.Footer className={'d-flex justify-content-between'}>
-        <Form.Check
-          type={'checkbox'}
-          label={'Only even'}
-          checked={onlyEven}
-          onChange={(e) => setOnlyEven(e.target.checked)}
-        />
-        <div>
-          <Button className={'m-1'} onClick={props.onHide}>
-            All Contacts
-          </Button>
-          <Button className={'m-1'} onClick={props.onHide}>
-            US Contacts
-          </Button>
-          <Button className={'m-1'} onClick={props.onHide} variant='secondary'>
-            Close
-          </Button>
-        </div>
-      </Modal.Footer>
-    </Modal>
+      )}
+    </>
   );
 };
 

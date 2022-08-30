@@ -17,13 +17,11 @@ export const fetchContacts = (query) => {
     http
       .get(PATH, { params: { ...query } })
       .then((response) => {
-        let contacts = [];
-        for (const [key, value] of Object.entries(response.data.contacts)) {
-          contacts.push(value);
-        }
+        const contacts = Object.values(response.data.contacts);
         dispatch(fetchContactsSuccess(contacts));
       })
       .catch((error) => {
+        window.alert(error);
         dispatch(fetchContactsFailure(error));
       });
   };
@@ -35,13 +33,11 @@ export const loadMoreContacts = (query) => {
     http
       .get(PATH, { params: { ...query } })
       .then((response) => {
-        let contacts = [];
-        for (const [key, value] of Object.entries(response.data.contacts)) {
-          contacts.push(value);
-        }
+        const contacts = Object.values(response.data.contacts);
         dispatch(loadMoreContactsSuccess(contacts));
       })
       .catch((error) => {
+        window.alert(error);
         dispatch(loadMoreContactsFailure(error));
       });
   };

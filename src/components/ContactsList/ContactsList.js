@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
+import Badge from 'react-bootstrap/Badge';
 import Scrollbars from 'react-custom-scrollbars-2';
 import { getContactsWithEvenId } from '../../utils/utils';
 
@@ -29,7 +30,6 @@ const ContactsList = (props) => {
 
   const scrollFrameHandler = (values) => {
     if (values.top > 0.95 && !loading) {
-      console.log('bottom scrolled');
       onLoadMore();
     }
   };
@@ -54,6 +54,9 @@ const ContactsList = (props) => {
               <div className='fw-bold'>{contact.email}</div>
               Phone: {contact.phone_number}
             </div>
+            <Badge bg='primary' pill>
+              {contact.id}
+            </Badge>
           </ListGroup.Item>
         ))}
       </ListGroup>

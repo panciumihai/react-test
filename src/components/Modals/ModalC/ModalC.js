@@ -4,15 +4,13 @@ import ListGroup from 'react-bootstrap/ListGroup';
 const ModalC = (props) => {
   const { contact, show, onHide } = props;
 
-  console.log(contact);
-
   return (
     <Modal
       show={show}
       onHide={onHide}
       size='sm'
       aria-labelledby='contained-modal-title-vcenter '
-      backdrop='static'
+      backdrop={false}
       centered
     >
       <Modal.Header closeButton>
@@ -49,6 +47,16 @@ const ModalC = (props) => {
             <div className='ms-2 me-auto'>
               <div className='fw-bold'>{'Email'}</div>
               {contact.email}
+            </div>
+          </ListGroup.Item>
+
+          <ListGroup.Item
+            as='li'
+            className='d-flex justify-content-between align-items-start overflow-hidden'
+          >
+            <div className='ms-2 me-auto'>
+              <div className='fw-bold'>{'Phone Number'}</div>
+              {contact.phone_number}
             </div>
           </ListGroup.Item>
 

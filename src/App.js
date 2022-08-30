@@ -16,7 +16,6 @@ function App() {
   const { hash } = useLocation();
 
   useEffect(() => {
-    console.log(hash);
     if (hash === '#ModalA') setModalAShow(true);
     else setModalAShow(false);
     if (hash === '#ModalB') setModalBShow(true);
@@ -42,7 +41,11 @@ function App() {
           <Button className={'m-1'} onClick={showModalAHandler}>
             Button A
           </Button>
-          <Button className={'m-1'} onClick={showModalBHandler}>
+          <Button
+            variant='secondary'
+            className={'m-1'}
+            onClick={showModalBHandler}
+          >
             Button B
           </Button>
         </div>

@@ -41,7 +41,6 @@ const ContactsModal = (props) => {
     }
 
     const delayDebounceFn = setTimeout(() => {
-      console.log(searchValue);
       const query = { countryId: countryId, query: searchValue };
       fetchContacts(query);
     }, delay);
@@ -92,7 +91,7 @@ const ContactsModal = (props) => {
               onKeyDown={(e) => (e.key === 'Enter' ? searchHandler() : null)}
             />
             <Button
-              variant='outline-secondary'
+              variant='outline-primary'
               id='button-addon2'
               onClick={() => searchHandler()}
             >
@@ -119,13 +118,17 @@ const ContactsModal = (props) => {
             <Button className={'m-1'} onClick={onAllContactsClick}>
               All Contacts
             </Button>
-            <Button className={'m-1'} onClick={onUSContactsClick}>
+            <Button
+              className={'m-1'}
+              onClick={onUSContactsClick}
+              variant='secondary'
+            >
               US Contacts
             </Button>
             <Button
               className={'m-1'}
               onClick={props.onHide}
-              variant='secondary'
+              variant='outline-primary'
             >
               Close
             </Button>

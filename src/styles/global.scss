@@ -1,0 +1,29 @@
+$theme-colors: (
+  'primary': #46139f,
+  'secondary': #ff7f50,
+);
+
+@import '~bootstrap/scss/bootstrap';
+
+.contact-list-container {
+  z-index: 99;
+  .list-group-item {
+    z-index: 0;
+  }
+}
+
+.center-container {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app-container {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

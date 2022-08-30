@@ -23,6 +23,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loadingContacts: true,
+        contacts: [],
       };
     case FETCH_CONTACTS_SUCCESS:
       return {
